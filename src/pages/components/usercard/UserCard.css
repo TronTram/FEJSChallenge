@@ -1,0 +1,54 @@
+.container {
+    width: 100%;
+    height: 100%;
+    background: var(--bg-main);
+    border: 1px solid #ececec;
+    border-radius: .25rem;
+    box-shadow: 0 1px 3px rgb(0 0 0 / 4%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-info {
+    min-height: 15px;
+    width: 100%;
+    font-size: .875rem;
+    font-weight: 500;
+    font-family: "Roboto",sans-serif;
+    margin-left: 10px;
+}
+.btn-container {
+    width: 200px;
+    height: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+.btn {
+    min-width: 50px;
+    height: 30px;
+    font-weight: 700;
+    font-family: "Roboto",sans-serif;
+    background: none;
+    border: 1px solid #ececec;
+    border-radius: 5px;
+    outline: none;
+}
+.btn.btn-left {
+    margin-left: 10px;
+}
+.btn.btn-right {
+    margin-right: 10px;
+}
+.btn-like:hover {
+    background-color: #f9e1e6;
+    cursor: pointer;
+}
+
+.btn-dislike:hover {
+    background-color: #b7d0ff;
+    cursor: pointer;
+}

@@ -1,0 +1,50 @@
+.info-container {
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    border-bottom: 1px solid #ececec;
+}
+
+.info-left {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    flex-shrink: 1;
+    width: 50%;
+    flex-basis: auto;
+}
+
+.info-right {
+    flex-basis: auto;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.avatar-thumb {
+    margin-right: 10px;
+}
+.avatar-thumb > img {
+    border-radius: 50%;
+    background-repeat:no-repeat; 
+}
+
+
+.info-detail {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.6em;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.btn-delete {
+    height: 20px;
+    min-width: 20px;
+    border-radius: 20px;
+    border: none;
+}
+
+.btn-delete:hover {
+    background-color: #fddede;
+}

@@ -9,11 +9,12 @@ function LikedUser (props) {
         if (!user.id) return;
         onRemoveUser(user.id);
     }, [user, onRemoveUser])
+
     return (
         <div key={user.id} className="info-container">
             <div className="info-left">
                 <div className="avatar-thumb" >
-                    <img src={`${user?.picture || '/'}`} className="avatar" alt="" width="30px" height="30px"></img>
+                    <img src={`${user?.picture || '/'}`} className="avatar" alt="" width="40px" height="40px"></img>
                 </div>
                 <div className="info-detail">
                     <div className="username-wrapper">
@@ -21,16 +22,16 @@ function LikedUser (props) {
                             {`${user?.firstName} ${user?.lastName}`}
                         </span>
                     </div>
-                    {/* <div className="gender-wrapper">
+                    <div className="gender-wrapper">
                         <span className="gender">
-                            Gender: Female
+                            Gender: {`${user?.gender}`}
                         </span>
-                    </div> */}
+                    </div>
                 </div>
             </div>
             <div className="info-right">
                 <button className="btn btn-delete" onClick={onClick}>
-                    <img src={DeleteIcon} className="avatar" alt="" width="10px" height="10px"></img>
+                    <img src={DeleteIcon} className="avatar" alt="" width="12px" height="12px"></img>
                 </button>
             </div>
         </div>

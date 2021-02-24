@@ -1,26 +1,47 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import LikeIcon from "../../../assets/icons/heart.svg";
 import DisLikeIcon from "../../../assets/icons/thumb-down.svg";
 import './UserCard.css';
 
 function User(props){
-
+    const [state, setState] = useState({
+        disabled: false
+    })
     const {
         user,
         onClick
     } = props;
 
+    const handleDisableButton = useCallback(function(status) {
+        setState(function(prevState) {
+            return {
+                ...prevState,
+                disabled: status
+            }
+        })
+    }, [])
+
     const onLike = useCallback(function(e) {
+
         e.preventDefault();
-        if (!user?.id) return;
-        onClick(true, user.id)
-    }, [user, onClick]);
+        if (!user?.id || state.disabled) return;
+        handleDisableButton(true);
+
+        onClick(true, user.id, function() {
+            return handleDisableButton(false);
+        });
+    }, [user, onClick, handleDisableButton, state.disabled]);
 
     const onDisLike = useCallback(function(e) {
+
         e.preventDefault();
-        if (!user?.id) return;
-        onClick(false, user.id)
-    }, [user, onClick]);
+        if (!user?.id || state.disabled) return;
+        handleDisableButton(true);
+
+        onClick(false, user.id, function() {
+            return handleDisableButton(false);
+        });
+    }, [user, onClick, handleDisableButton, state.disabled]);
     
     return (
         <div className="container">

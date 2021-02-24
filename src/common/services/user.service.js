@@ -1,13 +1,11 @@
 
-import isObject from 'lodash/isObject';
-import isEmpty from 'lodash/isEmpty';
-
+const APP_ID = "60365cf26aca29288e6df97b"
 class UserService {
 
     static async getUsers() {
         const response = await fetch("https://dummyapi.io/data/api/user?limit=10", {
             headers: {
-                "app-id": "60349db146ff8b0837d18351"
+                "app-id": APP_ID
             }
         });
 
@@ -18,7 +16,7 @@ class UserService {
         if (!userId) return null;
         const response = await fetch(`https://dummyapi.io/data/api/user/${userId}`, {
             headers: {
-                "app-id": "60349db146ff8b0837d18351"
+                "app-id": APP_ID
             }
         });
 

@@ -11,6 +11,11 @@
     align-items: center;
 }
 
+.img-contaier {
+    min-width: 200px;
+    min-height: 200px;
+}
+
 .user-info {
     min-height: 15px;
     width: 100%;

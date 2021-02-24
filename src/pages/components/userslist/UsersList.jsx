@@ -54,34 +54,40 @@ function UsersList (props) {
         fetchUsers();
       }, []);
 
-      const onClick = useCallback(async function(isLike = true, userId){
+      const onClick = useCallback(async function (isLike = true, userId, callback) {
+        try {
           const foundUserIndex = users.findIndex(user => user.id === userId);
           if (foundUserIndex === -1) return;
-        
+  
           if (isLike) {
             users[foundUserIndex].liked = true;
           } else {
             users[foundUserIndex].disLiked = true;
           }
 
-        if (foundUserIndex !== users.length - 1) {
-          const nextUserDetail = await UserService.getUserDetail(users[foundUserIndex + 1].id);
-          const newUsers = updateUserDetail(users, nextUserDetail);
-          __isMounted && setState(function (prevState) {
-            return {
-              ...prevState,
-              user: newUsers,
-              activeUser: nextUserDetail,
-              numsLiked: isLike ? prevState.numsLiked + 1 : prevState.numsLiked
-            }
-          })
-        } else {
-          __isMounted && setState(function (prevState) {
-            return {
-              ...prevState,
-              numsLiked: isLike ? prevState.numsLiked + 1 : prevState.numsLiked
-            }
-          })
+          if (foundUserIndex !== users.length - 1) {
+            const nextUserDetail = await UserService.getUserDetail(users[foundUserIndex + 1].id);
+            const newUsers = updateUserDetail(users, nextUserDetail);
+            __isMounted && setState(function (prevState) {
+              return {
+                ...prevState,
+                users: newUsers,
+                activeUser: nextUserDetail,
+                numsLiked: isLike ? prevState.numsLiked + 1 : prevState.numsLiked
+              }
+            })
+          } else {
+            __isMounted && setState(function (prevState) {
+              return {
+                ...prevState,
+                numsLiked: isLike ? prevState.numsLiked + 1 : prevState.numsLiked
+              }
+            })
+          }
+
+          if (typeof callback === 'function') callback();
+        } catch (error) {
+          handleError(error)
         }
       }, [users]);
 

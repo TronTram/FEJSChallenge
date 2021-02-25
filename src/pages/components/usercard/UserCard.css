@@ -14,6 +14,8 @@
 .img-contaier {
     min-width: 200px;
     min-height: 200px;
+    background-size: cover;
+    background-repeat: no-repeat
 }
 
 .user-info {

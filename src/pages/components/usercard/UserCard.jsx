@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import { useSwipeable } from "react-swipeable";
 import LikeIcon from "../../../assets/icons/heart.svg";
 import DisLikeIcon from "../../../assets/icons/thumb-down.svg";
 import './UserCard.css';
@@ -43,11 +44,19 @@ function User(props){
         });
     }, [user, onClick, handleDisableButton, state.disabled]);
     
+    const handlers = useSwipeable({
+        onSwipedLeft: function({event}) {
+            return onDisLike(event);
+        },
+        onSwipedRight: function({event}) {
+            return onLike(event);
+        },
+        preventDefaultTouchmoveEvent: false,
+        trackMouse: true
+    });
     return (
         <div className="container">
-            <div className="img-contaier">
-                <img src={`${user?.picture || "/"}`} alt="Girl in a jacket" width="200"/>
-            </div>
+            <div className="img-contaier" {...handlers} style={{backgroundImage: `url(${user.picture})`}} />
             <div className="user-info">
                 <p className="user-info username">
                     {`${user?.firstName || ""} ${user?.lastName || ""}`}

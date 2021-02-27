@@ -60,17 +60,8 @@ function UsersList (props) {
         try {
           const foundUserIndex = users.findIndex(user => user.id === userId);
 
-          if (foundUserIndex === -1) return null;
-          if ( users[foundUserIndex].liked || users[foundUserIndex].disLiked) {
-            return setState(function(prevState) {
-              return {
-                ...prevState,
-                isLoading: true,
-                page: prevState.page + 1
-              }
-            })
-          }
-
+          if (foundUserIndex === -1 || users[foundUserIndex].liked || users[foundUserIndex].disLiked) return null;
+          
           if (isLike) {
             users[foundUserIndex].liked = true;
           } else {
@@ -92,7 +83,9 @@ function UsersList (props) {
             __isMounted && setState(function (prevState) {
               return {
                 ...prevState,
-                numsLiked: isLike ? prevState.numsLiked + 1 : prevState.numsLiked
+                numsLiked: isLike ? prevState.numsLiked + 1 : prevState.numsLiked,
+                isLoading: true,
+                page: prevState.page + 1
               }
             })
           }

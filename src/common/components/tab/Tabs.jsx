@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import * as ReactIs from 'react-is';
 import Tab from "./Tab";
 

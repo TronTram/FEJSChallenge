@@ -56,7 +56,7 @@ function User(props){
     });
     return (
         <div className="container">
-            <div className="img-contaier" {...handlers} style={{backgroundImage: `url(${user.picture})`}} />
+            <div className="img-contaier" {...handlers} style={{backgroundImage: `url(${user?.picture})`}} />
             <div className="user-info">
                 <p className="user-info username">
                     {`${user?.firstName || ""} ${user?.lastName || ""}`}

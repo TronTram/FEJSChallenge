@@ -2,8 +2,8 @@
 const APP_ID = "60365cf26aca29288e6df97b"
 class UserService {
 
-    static async getUsers() {
-        const response = await fetch("https://dummyapi.io/data/api/user?limit=10", {
+    static async getUsers(page = 0) {
+        const response = await fetch(`https://dummyapi.io/data/api/user?page=${page}&limit=10`, {
             headers: {
                 "app-id": APP_ID
             }

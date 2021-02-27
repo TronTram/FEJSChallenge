@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback, Fragment } from 'react';
+
 import { Tabs, TabPanel } from "../../../common/components/tab";
+import Loading from "../../../common/components/loading/Loading";
 import UserCard from '../usercard/UserCard';
 import LikedUsers from '../likedUsers/LikedUsers';
 import UserService from '../../../common/services/user.service';
@@ -11,12 +13,13 @@ import "./UsersList.css"
 function UsersList (props) {
     const [state, setState] = useState({
         isLoading: true,
+        page: 0,
         users: [],
         activeUser: {},
         numsLiked: 0
       })
     
-      const { isLoading, users, activeUser, numsLiked } = state;
+      const { isLoading, users, activeUser, numsLiked, page } = state;
     
       const __isMounted = useRef(false);
       useEffect(function () {
@@ -31,17 +34,16 @@ function UsersList (props) {
         const fetchUsers = async function () {
           try {
 
-            const { data: users = [] }  = await UserService.getUsers();
+            const { data: users = [] }  = await UserService.getUsers(page);
             if (!users.length) return null;
 
             const userDetail = await UserService.getUserDetail(users[0].id);
             const newUsers = updateUserDetail(users, userDetail);
-
             __isMounted && setState(function (prevState) {
               return {
                 ...prevState,
                 isLoading: false,
-                users: newUsers,
+                users: prevState.users.concat(newUsers),
                 activeUser: userDetail
               }
             })
@@ -52,13 +54,23 @@ function UsersList (props) {
         }
     
         fetchUsers();
-      }, []);
+      }, [page]);
 
       const onClick = useCallback(async function (isLike = true, userId, callback) {
         try {
           const foundUserIndex = users.findIndex(user => user.id === userId);
-          if (foundUserIndex === -1) return;
-  
+
+          if (foundUserIndex === -1) return null;
+          if ( users[foundUserIndex].liked || users[foundUserIndex].disLiked) {
+            return setState(function(prevState) {
+              return {
+                ...prevState,
+                isLoading: true,
+                page: prevState.page + 1
+              }
+            })
+          }
+
           if (isLike) {
             users[foundUserIndex].liked = true;
           } else {
@@ -115,7 +127,10 @@ function UsersList (props) {
         <Fragment>
             {
                 isLoading ?
-                    <div>Loading...</div> :
+                    <div className="loading-container"> 
+                      <Loading /> 
+                    </div>                   
+                    :
                     <Tabs className="nav-link">
                       <TabPanel label="Home">
                         <UserCard user={activeUser} onClick={onClick} />

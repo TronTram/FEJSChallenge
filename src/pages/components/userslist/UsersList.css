@@ -44,3 +44,11 @@
 .gender {
     font-size: 0.6rem;
 }
+
+.loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 200px;
+    min-height: 300px;
+}

@@ -39,7 +39,7 @@ function UsersList (props) {
 
             const userDetail = await UserService.getUserDetail(users[0].id);
             const newUsers = updateUserDetail(users, userDetail);
-            __isMounted && setState(function (prevState) {
+            __isMounted.current && setState(function (prevState) {
               return {
                 ...prevState,
                 isLoading: false,
